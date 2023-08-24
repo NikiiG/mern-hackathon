@@ -6,6 +6,7 @@ module.exports = {
   addToCart,
   setItemQtyInCart,
   checkout,
+  getOrders,
 };
 
 // A cart is the unpaid order for a user
@@ -34,4 +35,9 @@ async function checkout(req, res) {
   cart.isPaid = true;
   await cart.save();
   res.json(cart);
+}
+async function getOrders(req, res) {
+  // A cart is the unpaid order for a user
+  const orders = await Order.getUserOrders(req.user._id);
+  res.json(orders);
 }
